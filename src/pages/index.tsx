@@ -1,5 +1,6 @@
 import Head from "next/head";
 import type { NextPage } from "next";
+import ViewClips from "../components/ViewClips";
 import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
@@ -17,7 +18,9 @@ const Home: NextPage = () => {
           {!session ? (
             <div>{`Logging you in momentarily...`}</div>
           ) : (
-            <div>{`Hello`}</div>
+            <div>
+              <ViewClips session={session} />
+            </div>
           )}
         </div>
       </main>
