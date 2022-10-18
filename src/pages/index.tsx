@@ -2,6 +2,7 @@ import AddClip from "../components/AddClip";
 import Head from "next/head";
 import type { NextPage } from "next";
 import ViewClips from "../components/ViewClips";
+import { signOut as logout } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
@@ -14,7 +15,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>{`Hello world`}</div>
+        <button
+          onClick={() => {
+            logout();
+          }}
+        >{`logout`}</button>
         <div>
           {!session ? (
             <div>{`Logging you in momentarily...`}</div>
