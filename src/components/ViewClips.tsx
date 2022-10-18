@@ -56,7 +56,8 @@ const ViewClips = ({}: Props) => {
           <li key={clip.id}>
             <p>{clip.title}</p>
             <div>
-              <h1>{`Allowed`}</h1>
+              <h1>{`Allowed:`}</h1>
+              <p>{clip.content}</p>
               {clip.allowed.map((v, i) => (
                 <p key={i}>{v}</p>
               ))}

@@ -1,3 +1,4 @@
+import AddClip from "../components/AddClip";
 import Head from "next/head";
 import type { NextPage } from "next";
 import ViewClips from "../components/ViewClips";
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
           ) : (
             <div>
               <ViewClips session={session} />
+              <AddClip session={session} />
             </div>
           )}
         </div>

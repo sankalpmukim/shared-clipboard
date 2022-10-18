@@ -25,6 +25,7 @@ const restricted = async (req: NextApiRequest, res: NextApiResponse) => {
           title: req.body.title,
           content: req.body.content,
           userId: session.user.id,
+          allowed: req.body.allowed,
         },
       });
       return res.status(201).json(clip);
