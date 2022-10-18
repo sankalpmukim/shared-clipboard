@@ -68,6 +68,7 @@ const AddClip = ({}: Props) => {
         <div>
           <label htmlFor="title">{`Title`}</label>
           <input
+            className="rounded-md border border-gray-300"
             type="text"
             id="title"
             name="title"
@@ -78,6 +79,7 @@ const AddClip = ({}: Props) => {
         <div>
           <label htmlFor="content">{`Content`}</label>
           <input
+            className="rounded-md border border-gray-300"
             type="text"
             id="content"
             name="content"
@@ -88,6 +90,7 @@ const AddClip = ({}: Props) => {
         <div>
           <label htmlFor="allowed">{`Allowed`}</label>
           <input
+            className="rounded-md border border-gray-300"
             type="text"
             id="allowed"
             name="allowed"
