@@ -28,7 +28,7 @@ const ViewSharedClips = ({ email }: Props) => {
       setError(true);
       setLoading(false);
     }
-  }, []);
+  }, [email]);
 
   useEffect(() => {
     fetchClips();
