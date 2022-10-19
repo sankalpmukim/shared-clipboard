@@ -6,12 +6,8 @@ import { Clip } from "@prisma/client";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { prisma } from "../../../server/db/client";
 
-const restricted = async (req: NextApiRequest, res: NextApiResponse) => {
+const getClipsByEmail = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
-
-  if (!session || !session.user) {
-    res.status(401).json({ error: "unauthorized" });
-  }
 
   // get the email from the url
   const { email } = req.query;
@@ -63,4 +59,4 @@ const restricted = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json(returnableClips);
 };
 
-export default restricted;
+export default getClipsByEmail;

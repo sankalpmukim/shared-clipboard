@@ -4,7 +4,7 @@ import { Clip } from "@prisma/client";
 import { Session } from "next-auth";
 
 interface Props {
-  session: Session;
+  session: Session | null;
   email: string;
 }
 const ViewSharedClips = ({ email }: Props) => {
@@ -44,7 +44,7 @@ const ViewSharedClips = ({ email }: Props) => {
 
   return (
     <div>
-      <h1>View Clips</h1>
+      <h1>View Shared Clips</h1>
       {/* refresh button */}
       <button
         className="bg-slate-600 text-white"
