@@ -1,9 +1,11 @@
+import { signIn, signOut } from "next-auth/react";
+
 import ViewSharedClips from "../components/ViewSharedClips";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 export default function Page() {
-  const { data: session, status } = useSession({ required: true });
+  const { data: session, status } = useSession();
   const {
     query: { email },
   } = useRouter();
@@ -16,13 +18,22 @@ export default function Page() {
     return <p>Loading...</p>;
   }
 
-  if (status !== "authenticated") {
-    return <p>Access Denied</p>;
-  }
-
   return (
     <>
       <h1>{`View shared clips`}</h1>
+
+      <button
+        onClick={() => {
+          if (session) {
+            signOut({
+              redirect: false,
+            });
+          } else {
+            signIn();
+          }
+        }}
+      >{`Sign ${session ? `out` : `in`}`}</button>
+
       <ViewSharedClips session={session} email={email} />
     </>
   );
