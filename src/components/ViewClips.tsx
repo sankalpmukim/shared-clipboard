@@ -28,6 +28,27 @@ const ViewClips = ({}: Props) => {
       setLoading(false);
     }
   }, []);
+  const deleteClip = useCallback(
+    async (id: string) => {
+      try {
+        const res = await fetch(`/api/clips/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+        if (!res.ok) {
+          throw new Error("Error deleting clip");
+        }
+        fetchClips();
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+      }
+    },
+    [fetchClips]
+  );
 
   useEffect(() => {
     fetchClips();
@@ -49,18 +70,46 @@ const ViewClips = ({}: Props) => {
         className="bg-slate-600 text-white"
         onClick={fetchClips}
       >{`Refresh`}</button>
-      <ul>
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {/* 0 length clips */}
         {clips.length === 0 && <div>{`No clips made yet`}</div>}
         {clips.map((clip) => (
-          <li key={clip.id}>
-            <p>{clip.title}</p>
-            <div>
-              <h1>{`Allowed:`}</h1>
+          <li
+            key={clip.id}
+            className="rounded-md border-2 border-slate-600 bg-slate-600 p-2 text-white"
+          >
+            {/* clip header */}
+            <div className="flex justify-between text-2xl font-bold">
+              {/* clip title */}
+              <h1 className="text-2xl font-bold">{clip.title}</h1>
+              {/* delete clip */}
+              <button
+                className="bg-red-600 text-sm text-white"
+                onClick={() => deleteClip(clip.id)}
+              >{`Delete`}</button>
+            </div>
+            {/* clip content */}
+            <div className="flex justify-between text-sm">
               <p>{clip.content}</p>
-              {clip.allowed.map((v, i) => (
-                <p key={i}>{v}</p>
-              ))}
+              {/* small copy button */}
+              <button
+                className="bg-black text-sm text-white"
+                onClick={() => copyString(clip.content)}
+              >{`Copy`}</button>
+            </div>
+
+            <div>
+              {clip.allowed.length > 0 && (
+                <>
+                  {" "}
+                  <h1>{`Allowed:`}</h1>
+                  {clip.allowed}
+                </>
+              )}
+              {clip.allowAll ? <h1>{`Allowed All`}</h1> : null}
+              {clip.allowAll === false && clip.allowed.length === 0 ? (
+                <h1>{`Not visible to anyone`}</h1>
+              ) : null}
             </div>
           </li>
         ))}
@@ -68,5 +117,14 @@ const ViewClips = ({}: Props) => {
     </div>
   );
 };
+
+function copyString(text: string) {
+  const el = document.createElement("textarea");
+  el.value = text;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+}
 
 export default ViewClips;
