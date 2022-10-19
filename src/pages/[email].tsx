@@ -29,7 +29,7 @@ export default function Page() {
               redirect: false,
             });
           } else {
-            signIn();
+            signIn("google");
           }
         }}
       >{`Sign ${session ? `out` : `in`}`}</button>
