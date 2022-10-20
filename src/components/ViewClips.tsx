@@ -31,12 +31,13 @@ const ViewClips = ({}: Props) => {
   const deleteClip = useCallback(
     async (id: string) => {
       try {
-        const res = await fetch(`/api/clips/${id}`, {
+        const res = await fetch(`/api/clips`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
+          body: JSON.stringify({ id }),
         });
         if (!res.ok) {
           throw new Error("Error deleting clip");
