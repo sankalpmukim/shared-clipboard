@@ -78,9 +78,8 @@ const AddClip = ({}: Props) => {
         </div>
         <div>
           <label htmlFor="content">{`Content`}</label>
-          <input
+          <textarea
             className="rounded-md border border-gray-300"
-            type="text"
             id="content"
             name="content"
             value={clip.content}
