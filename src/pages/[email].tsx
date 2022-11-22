@@ -11,7 +11,7 @@ export default function Page() {
   } = useRouter();
 
   if (typeof email !== "string") {
-    return <div>{`Invalid email`}</div>;
+    return <div>{`Processing...`}</div>;
   }
 
   if (status === "loading") {
